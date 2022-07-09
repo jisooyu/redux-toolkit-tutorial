@@ -2,7 +2,7 @@ import { FaCarAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const { quantity } = useSelector((state) => state.cars);
+  const { totalQuantity } = useSelector((state) => state.cars);
 
   return (
     <div className='bg-orange-800 text-neutral-50 flex justify-around'>
@@ -11,7 +11,7 @@ const Navbar = () => {
       </div>
       <div className='p-4 text-3xl flex'>
         <FaCarAlt />
-        <p className='ml-4 text-2xl'>{quantity}</p>
+        <p className='ml-4 text-2xl'>{totalQuantity}</p>
       </div>
     </div>
   );
