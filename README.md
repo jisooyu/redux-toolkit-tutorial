@@ -1,70 +1,119 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Redux Toolkit
 
-## Available Scripts
+### React Course
 
-In the project directory, you can run:
+[My React Course](https://www.youtube.com)
 
-### `npm start`
+### Support
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Find the App Useful? [You can buy me a coffee]
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Docs
 
-### `npm test`
+[Redux Toolkit Docs (https://redux-toolkit.js.org/introduction/getting-started)]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Install Template
 
-### `npm run build`
+```sh
+npx create-react-app@latest my-react-app --template redux
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Existing App
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm installl @reduxjs/toolkit react-redux
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### @reduxjs/toolkit
 
-### `npm run eject`
+consists of few libraries
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- redux (core library, state management)
+- immer (alllows to mutate state)
+- redux-thunk (handle async actions)
+- reselect 9simplifies reducer functions)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Extras
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- redux devtools
+- combine reducers
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### react-redux
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+connects our app to redux
 
-### Code Splitting
+#### Setup Store
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- create store.js
 
-### Analyzing the Bundle Size
+```js
+import { configureStore } from '@reduxjs/toolkit';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+export const store = configureStore({
+    reducer: {},
+});
+```
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Setup Provider
 
-### Advanced Configuration
+- index.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
-### Deployment
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### Setup Dealer Slice
 
-### `npm run build` fails to minify
+- application feature
+- create features folder/dealer
+- create dealerSlice.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+const initialState = {
+    dealerItems: [],
+    amount: 0,
+    total:0,
+    isLoading: true,
+};
+
+const dealerSlice = createSlice({
+    name: 'dealer',
+    initialState,
+});
+
+console.log(dealerSlice);
+export default dealerSlice.reducer;
+```
+
+- store.js
+
+```js
+import { configureStore } from '@reduxjs/toolkit';
+import dealerReducer from './features/dealer/dealerSlice'
+
+export const store = configureStore({
+    reducer: {
+        dealer: dealerReducer,
+    },
+});
+```
