@@ -7,16 +7,6 @@ const Cars = () => {
   const { carModels, totalValue } = useSelector((store) => store.cars);
   const dispatch = useDispatch();
 
-  // if (totalQuantity < 1) {
-  //   return (
-  //     <section className='block'>
-  //       <header>
-  //         <h2>your inventory</h2>
-  //         <h4>is currenty empty</h4>
-  //       </header>
-  //     </section>
-  //   );
-  // }
   return (
     <section className='block'>
       <header>
