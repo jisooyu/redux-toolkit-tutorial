@@ -15,10 +15,9 @@ const carSlice = createSlice({
     clearModels: (state) => {
       state.carModels = [];
     },
-    removeModel: (state, action) => {
-      const modelId = action.payload;
+    removeModel: (state, { payload }) => {
       state.carModels = state.carModels.filter(
-        (carModel) => modelId !== carModel.id
+        (model) => model.id !== payload.id
       );
     },
     increase: (state, { payload }) => {
